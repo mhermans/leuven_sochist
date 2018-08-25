@@ -1,0 +1,37 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(readr)
+library(leaflet)
+library(here)
+```
+
+```{r}
+gangen <- read_csv(
+  here::here('data/source/decooman_1980_gangen_overzicht.csv'),
+  col_types = cols(
+    sectie = col_character(),
+    pagina = col_integer(),
+    nummer = col_integer(),
+    straat = col_character(),
+    benaming_nl = col_character(),
+    benaming_fr = col_character(),
+    locatie_lat = col_double(),
+    locatie_lon = col_double(),
+    bouw_jaar = col_integer(),
+    afbraak_jaar = col_integer() ))
+```
+
+```{r}
+m.gangen <- leaflet(gangen) %>%
+  addProviderTiles(providers$Stamen.Toner) %>%
+  addCircleMarkers(lat = ~locatie_lat, lng = ~locatie_lon, label = ~benaming_nl)
+```
+
+```{r}
+m.gangen
+```
+
