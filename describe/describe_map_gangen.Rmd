@@ -13,21 +13,23 @@ library(here)
 gangen <- read_csv(
   here::here('data/source/decooman_1980_gangen_overzicht.csv'),
   col_types = cols(
-    sectie = col_character(),
-    pagina = col_integer(),
-    nummer = col_integer(),
-    straat = col_character(),
-    benaming_nl = col_character(),
-    benaming_fr = col_character(),
-    locatie_lat = col_double(),
-    locatie_lon = col_double(),
-    bouw_jaar = col_integer(),
-    afbraak_jaar = col_integer() ))
+  sectie = col_character(),
+  pagina = col_integer(),
+  nummer = col_integer(),
+  straat = col_character(),
+  benaming_nl = col_character(),
+  benaming_fr = col_character(),
+  locatie_lat = col_double(),
+  locatie_lon = col_double(),
+  bouw_jaar = col_character(),
+  afbraak_jaar = col_character(),
+  opmerking = col_character() ))
 ```
 
 ```{r}
-m.gangen <- leaflet(gangen) %>%
-  addProviderTiles(providers$Stamen.Toner) %>%
+m.gangen <- leaflet(gangen, width = '100%') %>%
+  # addProviderTiles(providers$Stamen.Toner) %>%
+  addTiles() %>%
   addCircleMarkers(lat = ~locatie_lat, lng = ~locatie_lon, label = ~benaming_nl)
 ```
 
